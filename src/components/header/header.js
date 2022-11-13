@@ -2,13 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import redditLogo from "../../assets/reddit_logo.png";
 import { Search } from "../../store/search/search";
+import { Login } from "../login/login";
 
 export const Header = () => {
   return (
-    <HeaderWrapper className="min-h-max max-w-[400px] ml-auto mr-auto">
+    <HeaderWrapper className="min-h-max">
       <HeaderMaxWidth>
-        <nav className="tablet:flex tablet:items-center tablet:justify-between">
-          <div className="text-center flex phone:flex-col tablet:flex-row items-center gap-2">
+        <nav className="tablet:flex tablet:items-center tablet:justify-center gap-5">
+          <div className="text-center flex phone:flex-row items-center justify-center gap-3">
             <figure className="w-28">
               <img
                 className="w-full inline-block drop-shadow-md"
@@ -16,6 +17,7 @@ export const Header = () => {
                 alt="reddit logo"
               />
             </figure>
+            <Login />
           </div>
           <Search />
         </nav>

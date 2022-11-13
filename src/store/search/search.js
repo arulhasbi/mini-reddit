@@ -4,7 +4,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 export const Search = () => {
   return (
-    <SearchWrapper className="mt-3 tablet:mt-0">
+    <SearchWrapper className="mt-5 tablet:mt-0">
       <SearchMaxWidth>
         <form>
           <div className="form-control flex gap-2 items-center justify-center">

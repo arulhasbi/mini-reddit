@@ -7,5 +7,9 @@ module.exports = {
       tablet: "640px",
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("tailwindcss"),
+    require("autoprefixer"),
+  ],
 };
