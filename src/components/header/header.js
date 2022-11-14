@@ -3,6 +3,7 @@ import styled from "styled-components";
 import redditLogo from "../../assets/reddit_logo.png";
 import { Search } from "../../store/search/search";
 import { Login } from "../login/login";
+import "../../api/util";
 
 export const Header = () => {
   return (
