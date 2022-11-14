@@ -30,12 +30,3 @@ export const loadAccessToken = async (code) => {
   const json = await response.json();
   return json;
 };
-
-export const getAccessToken = () => {
-  const user = JSON.parse(localStorage.getItem("user_access"));
-  if (user && user.access_token) {
-    return user.access_token;
-  } else {
-    return {};
-  }
-};

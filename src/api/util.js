@@ -15,6 +15,10 @@ export const getAuthCode = () => {
 
 export const checkAccessToken = () => {
   const userAccess = JSON.parse(window.localStorage.getItem("user_access"));
+  if (userAccess === null)
+    return {
+      status: false,
+    };
   if (userAccess.hasOwnProperty("access_token")) {
     return {
       status: true,
