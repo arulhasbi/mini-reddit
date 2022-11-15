@@ -34,6 +34,7 @@ const option = {
     [loadPosts.fulfilled]: (state, action) => {
       state.loadPostsIsPending = false;
       state.loadPostsHasError = false;
+      console.log(action.payload);
       const posts = action.payload.data.children.map((child) => {
         return {
           post_id: child.data.id,
@@ -42,6 +43,7 @@ const option = {
           num_comments: child.data.num_comments,
           subreddit_id: child.data.subreddit_id,
           subreddit_name: child.data.subreddit_name_prefixed,
+          score: child.data.score,
           created_utc: child.data.created_utc,
         };
       });
