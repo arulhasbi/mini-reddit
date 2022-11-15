@@ -8,6 +8,7 @@ import {
   selectAllSubreddits,
   selectLoadSubredditsStatus,
 } from "./subredditsSlice";
+import { loadPostsBasedOnSubreddit } from "../posts/postsSlice";
 
 export const Subreddits = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,14 @@ export const Subreddits = () => {
       fetchStatus.current = true;
     }
   }, [loginStatus.accessToken, dispatch]);
+  const handleClickSubreddit = (name) => {
+    dispatch(
+      loadPostsBasedOnSubreddit({
+        name: name,
+        token: loginStatus.accessToken,
+      })
+    );
+  };
   return (
     <SubredditsWrapper className="phone:w-full phone:fixed phone:bottom-0 phone:left-0 tablet:static tablet:grow tablet:w-auto tablet:shrink-0">
       <SubredditsMaxWidth>
@@ -40,6 +49,7 @@ export const Subreddits = () => {
                   <button
                     key={index}
                     className="block w-full flex items-center gap-1 px-2 py-2 bg-white hover:underline hover:decoration-1"
+                    onClick={() => handleClickSubreddit(subreddit.name)}
                   >
                     <span>
                       <BoltIcon className="w-5 text-amber-200" />
