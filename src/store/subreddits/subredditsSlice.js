@@ -26,6 +26,7 @@ const option = {
       state.loadSubredditsHasError = false;
       const subreddits = action.payload.data.children.map((child) => {
         return {
+          id: child.data.id,
           name: child.data.display_name_prefixed,
         };
       });

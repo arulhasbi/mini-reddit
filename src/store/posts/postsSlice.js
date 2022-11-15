@@ -26,10 +26,12 @@ const option = {
       state.loadPostsHasError = false;
       const posts = action.payload.data.children.map((child) => {
         return {
-          subreddit_name: child.data.subreddit_name_prefixed,
+          post_id: child.data.id,
+          title: child.data.title,
           author: child.data.author,
           num_comments: child.data.num_comments,
-          title: child.data.title,
+          subreddit_id: child.data.subreddit_id,
+          subreddit_name: child.data.subreddit_name_prefixed,
           created_utc: child.data.created_utc,
         };
       });

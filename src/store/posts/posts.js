@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { DocumentTextIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,13 +7,25 @@ import { selectLoginStatus } from "../login/loginSlice";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { Comments } from "../comments/comments";
+import { setPostID, selectPostID } from "../comments/commentsSlice";
+
+import {
+  loadComments,
+  selectLoadCommentsStatus,
+  selectAllComments,
+} from "../comments/commentsSlice";
 
 export const Posts = () => {
+  const [commentToggle, setCommentToggle] = useState(false);
   const dispatch = useDispatch();
   const fetchStatus = useRef(false);
   const loginStatus = useSelector(selectLoginStatus);
   const allPosts = useSelector(selectAllPosts);
   const loadPostsStatus = useSelector(selectLoadPostsStatus);
+  const allComments = useSelector(selectAllComments);
+  const loadCommentsStatus = useSelector(selectLoadCommentsStatus);
+  const postID = useSelector(selectPostID);
   useEffect(() => {
     if (fetchStatus.current) return;
     if (loginStatus.accessToken) {
@@ -21,6 +33,23 @@ export const Posts = () => {
       fetchStatus.current = true;
     }
   }, [loginStatus.accessToken, dispatch]);
+  const handleLoadComments = (post_id, subreddit_id) => {
+    if (commentToggle) {
+      setCommentToggle(false);
+      return;
+    }
+    dispatch(
+      loadComments({
+        where: {
+          article: post_id,
+          subreddit: subreddit_id,
+        },
+        token: loginStatus.accessToken,
+      })
+    );
+    dispatch(setPostID(post_id));
+    setCommentToggle(true);
+  };
   return (
     <PostsWrapper className="phone:ml-[-20px] phone:mr-[-20px] tablet:grow-[5] tablet:ml-[0px] tablet:mr-[0px]">
       <PostsMaxWidth>
@@ -41,12 +70,17 @@ export const Posts = () => {
                       <span>
                         <DocumentTextIcon className="w-5 text-amber-200" />
                       </span>
-                      <span className="text-gray-500">
+                      <span className="text-gray-500 hover:underline hover:decoration-1 hover:cursor-pointer">
                         Posted by u/{post.author}
                       </span>{" "}
-                      <span className="ml-auto font-medium">
-                        {post.subreddit_name}
-                      </span>
+                      <button
+                        className="ml-auto hover:bg-gray-200 px-2"
+                        type="button"
+                      >
+                        <span className="font-medium">
+                          {post.subreddit_name}
+                        </span>
+                      </button>
                       <span className="text-gray-500">
                         {moment(new Date(post.created_utc * 1000)).fromNow()}
                       </span>
@@ -57,8 +91,26 @@ export const Posts = () => {
                         <span>
                           <FontAwesomeIcon icon={faComment} />
                         </span>
-                        <span>{post.num_comments} Comments</span>
+                        <span
+                          className="text-gray-600"
+                          onClick={() =>
+                            handleLoadComments(
+                              post.post_id,
+                              post.subreddit_name
+                            )
+                          }
+                        >
+                          {post.num_comments} Comments
+                        </span>
                       </button>
+                    </div>
+                    <div className="px-2 mt-5">
+                      {loadCommentsStatus.isPending &&
+                        postID === post.post_id && <p>Loading Comments...</p>}
+                      {!loadCommentsStatus.isPending &&
+                        allComments.length > 0 &&
+                        postID === post.post_id &&
+                        commentToggle && <Comments comments={allComments} />}
                     </div>
                   </div>
                 ))}
