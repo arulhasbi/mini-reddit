@@ -39,7 +39,7 @@ export const Subreddits = () => {
                 allSubreddits.map((subreddit, index) => (
                   <button
                     key={index}
-                    className="block w-full flex items-center gap-1 px-2 py-2 bg-white hover:bg-indigo-800 hover:text-white"
+                    className="block w-full flex items-center gap-1 px-2 py-2 bg-white hover:underline hover:decoration-1"
                   >
                     <span>
                       <BoltIcon className="w-5 text-amber-200" />
