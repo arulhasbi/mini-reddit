@@ -35,25 +35,30 @@ export const Posts = () => {
                 allPosts.map((post, index) => (
                   <div
                     key={index}
-                    className="min-h-[100px] my-5 px-3 py-6 bg-white shadow-sm border"
+                    className="min-h-[100px] my-5 px-3 pt-6 pb-3 bg-white shadow-sm border"
                   >
                     <div className="flex items-start gap-3 border-b pb-3 mb-5">
                       <span>
                         <DocumentTextIcon className="w-5 text-amber-200" />
                       </span>
-                      <span>{post.subreddit_name}</span>{" "}
-                      <span className="text-gray-500 font-medium ml-auto">
+                      <span className="text-gray-500">
                         Posted by u/{post.author}
+                      </span>{" "}
+                      <span className="ml-auto font-medium">
+                        {post.subreddit_name}
                       </span>
                       <span className="text-gray-500">
                         {moment(new Date(post.created_utc * 1000)).fromNow()}
                       </span>
                     </div>
-                    <p className="text-lg px-3 mt-2">{post.title}</p>
+                    <p className="text-lg mt-2 mb-5">{post.title}</p>
                     <div>
-                      <span>
-                        <FontAwesomeIcon icon={faComment} />
-                      </span>
+                      <button className="flex gap-3 hover:bg-gray-200 px-2">
+                        <span>
+                          <FontAwesomeIcon icon={faComment} />
+                        </span>
+                        <span>{post.num_comments} Comments</span>
+                      </button>
                     </div>
                   </div>
                 ))}
