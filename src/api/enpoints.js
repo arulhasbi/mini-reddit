@@ -22,6 +22,17 @@ export const getPosts = async (where, token) => {
   return json;
 };
 
+export const getPostsBasedOnSubreddit = async (where, token) => {
+  const response = await fetch(`${base}/${where}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const json = await response.json();
+  return json;
+};
+
 export const getComments = async (where, token) => {
   const response = await fetch(
     `${base}/${where.subreddit}/comments/${where.article}`,

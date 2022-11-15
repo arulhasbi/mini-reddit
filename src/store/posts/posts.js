@@ -2,7 +2,12 @@ import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { DocumentTextIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { loadPosts, selectLoadPostsStatus, selectAllPosts } from "./postsSlice";
+import {
+  loadPosts,
+  selectLoadPostsStatus,
+  selectAllPosts,
+  selectLoadPostsBasedOnSubredditStatus,
+} from "./postsSlice";
 import { selectLoginStatus } from "../login/loginSlice";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,6 +31,10 @@ export const Posts = () => {
   const allComments = useSelector(selectAllComments);
   const loadCommentsStatus = useSelector(selectLoadCommentsStatus);
   const postID = useSelector(selectPostID);
+  const loadPostsBasedOnSubredditStatus = useSelector(
+    selectLoadPostsBasedOnSubredditStatus
+  );
+
   useEffect(() => {
     if (fetchStatus.current) return;
     if (loginStatus.accessToken) {
@@ -33,6 +42,7 @@ export const Posts = () => {
       fetchStatus.current = true;
     }
   }, [loginStatus.accessToken, dispatch]);
+
   const handleLoadComments = (post_id, subreddit_id) => {
     if (commentToggle) {
       setCommentToggle(false);
@@ -50,6 +60,7 @@ export const Posts = () => {
     dispatch(setPostID(post_id));
     setCommentToggle(true);
   };
+
   return (
     <PostsWrapper className="phone:ml-[-20px] phone:mr-[-20px] tablet:grow-[5] tablet:ml-[0px] tablet:mr-[0px]">
       <PostsMaxWidth>
@@ -58,7 +69,10 @@ export const Posts = () => {
             <span className="text-white">posts</span>
             <DocumentTextIcon className="w-5 text-amber-200" />
           </p>
-          {!loadPostsStatus.isPending ? (
+          {!(
+            loadPostsStatus.isPending ||
+            loadPostsBasedOnSubredditStatus.isPending
+          ) ? (
             <section>
               {allPosts &&
                 allPosts.map((post, index) => (
