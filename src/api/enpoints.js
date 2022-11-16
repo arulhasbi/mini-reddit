@@ -63,3 +63,17 @@ export const postVotes = async (where, token) => {
   const json = response.json();
   return json;
 };
+
+export const getSearch = async (where, token) => {
+  const response = await fetch(
+    `${base}/search?q=${where.q}&restrict_sr=false&limit=5&sort=top`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const json = await response.json();
+  return json;
+};

@@ -1,23 +1,21 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import styled from "styled-components";
 
-import moment from "moment";
+import moment from "moment/moment";
 
 import { DocumentTextIcon } from "@heroicons/react/24/solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 
-import { Comments } from "../comments/comments";
-import { Votes } from "../votes/votes";
+import { Comments } from "../../store/comments/comments";
+import { Votes } from "../../store/votes/votes";
 
 import {
-  loadPosts,
-  selectLoadPostsStatus,
-  selectAllPosts,
-  selectLoadPostsBasedOnSubredditStatus,
-} from "./postsSlice";
+  selectAllSearches,
+  selectLoadSearchesStatus,
+} from "../../store/search/searchSlice";
 
 import {
   loadComments,
@@ -25,44 +23,23 @@ import {
   selectAllComments,
   setPostID,
   selectPostID,
-} from "../comments/commentsSlice";
+} from "../../store/comments/commentsSlice";
 
-import { selectLoginStatus } from "../login/loginSlice";
+import { selectLoginStatus } from "../../store/login/loginSlice";
 
-export const Posts = () => {
+export const Searches = () => {
   const dispatch = useDispatch();
 
   const [commentToggle, setCommentToggle] = useState(false);
-  const loadPostsStatus = useSelector(selectLoadPostsStatus);
   const allComments = useSelector(selectAllComments);
-
   const loadCommentsStatus = useSelector(selectLoadCommentsStatus);
-  const loadPostsBasedOnSubredditStatus = useSelector(
-    selectLoadPostsBasedOnSubredditStatus
-  );
 
-  const allPosts = useSelector(selectAllPosts);
-  const postID = useSelector(selectPostID);
+  const allSearches = useSelector(selectAllSearches);
+  const loadSearchesStatus = useSelector(selectLoadSearchesStatus);
 
-  const fetchStatus = useRef(false);
   const loginStatus = useSelector(selectLoginStatus);
-  const initialLimitPosts = useRef(5);
 
-  useEffect(() => {
-    if (fetchStatus.current) return;
-    if (loginStatus.accessToken) {
-      dispatch(
-        loadPosts({
-          where: {
-            kind: "best",
-            limit: initialLimitPosts.current,
-          },
-          token: loginStatus.accessToken,
-        })
-      );
-      fetchStatus.current = true;
-    }
-  }, [loginStatus.accessToken, dispatch]);
+  const postID = useSelector(selectPostID);
 
   const handleLoadComments = (post_id, subreddit_id) => {
     if (commentToggle) {
@@ -81,35 +58,19 @@ export const Posts = () => {
     dispatch(setPostID(post_id));
     setCommentToggle(true);
   };
-
-  const handleLoadMorePosts = () => {
-    initialLimitPosts.current = initialLimitPosts.current + 5;
-    dispatch(
-      loadPosts({
-        where: {
-          kind: "best",
-          limit: initialLimitPosts.current,
-        },
-        token: loginStatus.accessToken,
-      })
-    );
-  };
   return (
-    <PostsWrapper className="phone:ml-[-20px] phone:mr-[-20px] tablet:grow-[5] tablet:ml-[0px] tablet:mr-[0px]">
-      <PostsMaxWidth>
+    <SearchesWrapper className="phone:ml-[-20px] phone:mr-[-20px] tablet:grow-[5] tablet:ml-[0px] tablet:mr-[0px]">
+      <SearchesMaxWidth>
         <section>
           <p className="px-5 py-3 antialiased font-extrabold text-lg flex gap-1 justify-center hover:cursor-pointer bg-indigo-800">
-            <span className="text-white">posts</span>
+            <span className="text-white">search result</span>
             <DocumentTextIcon className="w-5 text-amber-200" />
           </p>
-          {!(
-            loadPostsStatus.isPending ||
-            loadPostsBasedOnSubredditStatus.isPending
-          ) ? (
+          {!loadSearchesStatus.isPending ? (
             <section>
               <section>
-                {allPosts &&
-                  allPosts.map((post, index) => (
+                {allSearches &&
+                  allSearches.map((post, index) => (
                     <div
                       key={index}
                       className="min-h-[100px] my-5 px-3 pt-6 pb-3 bg-white shadow-sm border"
@@ -172,25 +133,15 @@ export const Posts = () => {
                     </div>
                   ))}
               </section>
-              {allPosts.length > 0 && (
-                <div className="text-center">
-                  <button
-                    className="px-2 text-md font-medium text-gray-500 underline decoration-1 hover:bg-gray-100"
-                    onClick={handleLoadMorePosts}
-                  >
-                    Load more posts
-                  </button>
-                </div>
-              )}
             </section>
           ) : (
-            <p className="py-7">Loading Posts...</p>
+            <p className="py-7">Loading Search Result...</p>
           )}
         </section>
-      </PostsMaxWidth>
-    </PostsWrapper>
+      </SearchesMaxWidth>
+    </SearchesWrapper>
   );
 };
 
-const PostsWrapper = styled.div``;
-const PostsMaxWidth = styled.div``;
+const SearchesWrapper = styled.div``;
+const SearchesMaxWidth = styled.div``;
