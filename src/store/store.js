@@ -4,6 +4,7 @@ import subredditsSliceReducer from "./subreddits/subredditsSlice";
 import postsSliceReducer from "./posts/postsSlice";
 import commentsSliceReducer from "./comments/commentsSlice";
 import votesSliceReducer from "./votes/votesSlice";
+import searchSliceReducer from "./search/searchSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     postsReducer: postsSliceReducer,
     commentsReducer: commentsSliceReducer,
     votesReducer: votesSliceReducer,
+    searchReducer: searchSliceReducer,
   },
 });
