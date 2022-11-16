@@ -42,6 +42,7 @@ const option = {
           num_comments: child.data.num_comments,
           subreddit_id: child.data.subreddit_id,
           subreddit_name: child.data.subreddit_name_prefixed,
+          score: child.data.score,
           created_utc: child.data.created_utc,
         };
       });
@@ -66,6 +67,7 @@ const option = {
           num_comments: child.data.num_comments,
           subreddit_id: child.data.subreddit_id,
           subreddit_name: child.data.subreddit_name_prefixed,
+          score: child.data.score,
           created_utc: child.data.created_utc,
         };
       });

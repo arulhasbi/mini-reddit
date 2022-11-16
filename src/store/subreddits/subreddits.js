@@ -59,7 +59,7 @@ export const Subreddits = () => {
                 ))}
             </section>
           ) : (
-            <p className="py-5">Loading Subreddits...</p>
+            <p className="py-4">Loading Subreddits...</p>
           )}
         </section>
       </SubredditsMaxWidth>
