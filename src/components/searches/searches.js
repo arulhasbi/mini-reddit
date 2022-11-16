@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import styled from "styled-components";
@@ -13,8 +13,10 @@ import { Comments } from "../../store/comments/comments";
 import { Votes } from "../../store/votes/votes";
 
 import {
+  loadSearches,
   selectAllSearches,
   selectLoadSearchesStatus,
+  selectSearchTerm,
 } from "../../store/search/searchSlice";
 
 import {
@@ -36,10 +38,12 @@ export const Searches = () => {
 
   const allSearches = useSelector(selectAllSearches);
   const loadSearchesStatus = useSelector(selectLoadSearchesStatus);
+  const searchTerm = useSelector(selectSearchTerm);
 
   const loginStatus = useSelector(selectLoginStatus);
 
   const postID = useSelector(selectPostID);
+  const initialLimitSearches = useRef(5);
 
   const handleLoadComments = (post_id, subreddit_id) => {
     if (commentToggle) {
@@ -58,6 +62,20 @@ export const Searches = () => {
     dispatch(setPostID(post_id));
     setCommentToggle(true);
   };
+
+  const handleLoadMoreSearches = () => {
+    initialLimitSearches.current = initialLimitSearches.current + 5;
+    dispatch(
+      loadSearches({
+        where: {
+          q: searchTerm,
+          limit: initialLimitSearches,
+        },
+        token: loginStatus.accessToken,
+      })
+    );
+  };
+
   return (
     <SearchesWrapper className="phone:ml-[-20px] phone:mr-[-20px] tablet:grow-[5] tablet:ml-[0px] tablet:mr-[0px]">
       <SearchesMaxWidth>
@@ -133,6 +151,16 @@ export const Searches = () => {
                     </div>
                   ))}
               </section>
+              {allSearches.length > 0 && (
+                <div className="text-center">
+                  <button
+                    className="px-2 text-md font-medium text-gray-500 underline decoration-1 hover:bg-gray-100"
+                    onClick={handleLoadMoreSearches}
+                  >
+                    Load more search result
+                  </button>
+                </div>
+              )}
             </section>
           ) : (
             <p className="py-7">Loading Search Result...</p>

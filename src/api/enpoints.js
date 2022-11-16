@@ -66,7 +66,9 @@ export const postVotes = async (where, token) => {
 
 export const getSearch = async (where, token) => {
   const response = await fetch(
-    `${base}/search?q=${where.q}&restrict_sr=false&limit=5&sort=top`,
+    `${base}/search?q=${where.q}&restrict_sr=false&limit=${
+      where.limit ? where.limit : 5
+    }&sort=top`,
     {
       method: "GET",
       headers: {

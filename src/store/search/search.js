@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { loadSearches, setSearchStatus } from "./searchSlice";
+import { loadSearches, setSearchStatus, setSearchTerm } from "./searchSlice";
 import { selectLoginStatus } from "../login/loginSlice";
 
 export const Search = () => {
@@ -11,6 +11,7 @@ export const Search = () => {
   const loginStatus = useSelector(selectLoginStatus);
   const handleSearchSubmit = (e) => {
     e.preventDefault();
+    dispatch(setSearchTerm(search));
     if (!search) {
       dispatch(setSearchStatus(false));
       return;

@@ -12,6 +12,7 @@ export const loadSearches = createAsyncThunk(
 const option = {
   name: "search",
   initialState: {
+    searchTerm: "",
     isLookingForSearches: false,
     searches: [],
     loadSearchesIsPending: false,
@@ -20,6 +21,9 @@ const option = {
   reducers: {
     setSearchStatus: (state, action) => {
       state.isLookingForSearches = action.payload;
+    },
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
     },
   },
   extraReducers: {
@@ -57,10 +61,12 @@ export default searchSlice.reducer;
 
 export const selectAllSearches = (state) => state.searchReducer.searches;
 
-export const { setSearchStatus } = searchSlice.actions;
+export const { setSearchStatus, setSearchTerm } = searchSlice.actions;
 
 export const selectSearchStatus = (state) =>
   state.searchReducer.isLookingForSearches;
+
+export const selectSearchTerm = (state) => state.searchReducer.searchTerm;
 
 export const selectLoadSearchesStatus = (state) => {
   return {
