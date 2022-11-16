@@ -36,11 +36,20 @@ export const Posts = () => {
   const loadPostsBasedOnSubredditStatus = useSelector(
     selectLoadPostsBasedOnSubredditStatus
   );
+  const initialLimitPosts = useRef(5);
 
   useEffect(() => {
     if (fetchStatus.current) return;
     if (loginStatus.accessToken) {
-      dispatch(loadPosts({ where: "best", token: loginStatus.accessToken }));
+      dispatch(
+        loadPosts({
+          where: {
+            kind: "best",
+            limit: initialLimitPosts.current,
+          },
+          token: loginStatus.accessToken,
+        })
+      );
       fetchStatus.current = true;
     }
   }, [loginStatus.accessToken, dispatch]);
@@ -63,11 +72,24 @@ export const Posts = () => {
     setCommentToggle(true);
   };
 
+  const handleLoadMorePosts = () => {
+    initialLimitPosts.current = initialLimitPosts.current + 5;
+    dispatch(
+      loadPosts({
+        where: {
+          kind: "best",
+          limit: initialLimitPosts.current,
+        },
+        token: loginStatus.accessToken,
+      })
+    );
+  };
+
   return (
     <PostsWrapper className="phone:ml-[-20px] phone:mr-[-20px] tablet:grow-[5] tablet:ml-[0px] tablet:mr-[0px]">
       <PostsMaxWidth>
         <section>
-          <p className="px-5 py-3 antialiased font-extrabold text-lg flex gap-1 justify-center hover:cursor-pointer bg-indigo-800 drop-shadow-md">
+          <p className="px-5 py-3 antialiased font-extrabold text-lg flex gap-1 justify-center hover:cursor-pointer bg-indigo-800">
             <span className="text-white">posts</span>
             <DocumentTextIcon className="w-5 text-amber-200" />
           </p>
@@ -141,11 +163,16 @@ export const Posts = () => {
                     </div>
                   ))}
               </section>
-              <div className="text-center">
-                <button className="px-2 text-md font-medium text-gray-500 underline decoration-1 hover:bg-gray-100">
-                  Load more posts
-                </button>
-              </div>
+              {allPosts.length > 0 && (
+                <div className="text-center">
+                  <button
+                    className="px-2 text-md font-medium text-gray-500 underline decoration-1 hover:bg-gray-100"
+                    onClick={handleLoadMorePosts}
+                  >
+                    Load more posts
+                  </button>
+                </div>
+              )}
             </section>
           ) : (
             <p className="py-7">Loading Posts...</p>
