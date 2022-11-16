@@ -5,6 +5,12 @@ module.exports = {
     screens: {
       phone: "280px",
       tablet: "640px",
+      desktop: "1025px",
+    },
+    extend: {
+      transitionProperty: {
+        spacing: "margin",
+      },
     },
   },
   plugins: [

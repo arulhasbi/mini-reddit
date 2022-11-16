@@ -95,7 +95,7 @@ export const Posts = () => {
     );
   };
   return (
-    <PostsWrapper className="phone:ml-[-20px] phone:mr-[-20px] tablet:grow-[5] tablet:ml-[0px] tablet:mr-[0px]">
+    <PostsWrapper className="tablet:grow-[5] tablet:ml-[0px] tablet:mr-[0px] shrink-[9999999]">
       <PostsMaxWidth>
         <section>
           <p className="px-5 py-3 antialiased font-extrabold text-lg flex gap-1 justify-center hover:cursor-pointer bg-indigo-800">
@@ -115,19 +115,19 @@ export const Posts = () => {
                       className="min-h-[100px] my-5 px-3 pt-6 pb-3 bg-white shadow-sm border"
                     >
                       <div className="flex gap-5">
-                        <div className="px-2 flex items-center border bg-white rounded-xl">
+                        <div className="px-2 flex items-center border bg-white rounded-xl py-3">
                           <Votes score={post.score} postID={post.post_id} />
                         </div>
                         <div className="grow">
-                          <div className="flex items-start gap-3 border-b pb-3 mb-5">
-                            <span>
+                          <div className="phone:gap-2 phone:flex phone:flex-col phone:items-start tablet:flex tablet:flex-row tablet:items-start tablet:gap-3 border-b pb-3 mb-5">
+                            <span className="hidden desktop:block">
                               <DocumentTextIcon className="w-5 text-amber-200" />
                             </span>
                             <span className="text-gray-500 hover:underline hover:decoration-1 hover:cursor-pointer">
                               Posted by u/{post.author}
                             </span>{" "}
                             <button
-                              className="ml-auto hover:bg-gray-200 px-2"
+                              className="tablet:ml-auto hover:bg-gray-200 tablet:px-2"
                               type="button"
                             >
                               <span className="font-medium">

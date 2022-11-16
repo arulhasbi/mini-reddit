@@ -45,9 +45,9 @@ export const Votes = (props) => {
   };
   const scoreConverter = (score) => {
     if (score >= 1000) {
-      return (score / 1000).toFixed(1);
+      return `${(score / 1000).toFixed(1)}K`;
     }
-    return score;
+    return score + voteInitial;
   };
   return (
     <VotesWrapper>
@@ -71,8 +71,7 @@ export const Votes = (props) => {
                 : "text-indigo-600"
             }`}
           >
-            {Number(scoreConverter(props.score)) + Number(voteInitial)}
-            {props.score > 1000 && "K"}
+            {scoreConverter(props.score)}
           </span>
           <button onClick={() => handleClickVote("down", props.postID)}>
             {" "}

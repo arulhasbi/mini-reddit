@@ -11,11 +11,16 @@ import { login } from "../store/login/loginSlice";
 import { selectLoginStatus, setAccessToken } from "../store/login/loginSlice";
 import { selectSearchStatus } from "../store/search/searchSlice";
 
+//experimental
+import { selectPhone } from "../store/responsive/responsiveSlice";
+
 function App() {
   const fetchStatus = useRef(false);
   const loginStatus = useSelector(selectLoginStatus);
   const searchStatus = useSelector(selectSearchStatus);
   const dispatch = useDispatch();
+
+  const isPhone = useSelector(selectPhone);
 
   useEffect(() => {
     if (fetchStatus.current) return;
@@ -37,10 +42,14 @@ function App() {
           <p>Authorizing...</p>
         </div>
       ) : (
-        <AppWrapper className="py-7 px-5">
+        <AppWrapper
+          className={`py-7 desktop:px-5 desktop:ml-0 phone:w-full phone:duration-700 phone:ml-[${
+            isPhone ? "300" : "0"
+          }px] phone:transition-spacing desktop:transition-none`}
+        >
           <AppMaxWidth>
             <Header />
-            <main className="mt-8 tablet:flex tablet:gap-5">
+            <main className="mt-5 tablet:flex tablet:gap-5">
               {searchStatus ? <Searches /> : <Posts />}
               <Subreddits />
             </main>

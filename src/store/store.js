@@ -5,6 +5,7 @@ import postsSliceReducer from "./posts/postsSlice";
 import commentsSliceReducer from "./comments/commentsSlice";
 import votesSliceReducer from "./votes/votesSlice";
 import searchSliceReducer from "./search/searchSlice";
+import responsiveSliceReducer from "./responsive/responsiveSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     commentsReducer: commentsSliceReducer,
     votesReducer: votesSliceReducer,
     searchReducer: searchSliceReducer,
+    responsiveReducer: responsiveSliceReducer,
   },
 });

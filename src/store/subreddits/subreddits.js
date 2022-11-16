@@ -10,12 +10,17 @@ import {
 } from "./subredditsSlice";
 import { loadPostsBasedOnSubreddit } from "../posts/postsSlice";
 
+import { selectPhone } from "../responsive/responsiveSlice";
+
 export const Subreddits = () => {
   const dispatch = useDispatch();
   const fetchStatus = useRef(false);
   const loginStatus = useSelector(selectLoginStatus);
   const allSubreddits = useSelector(selectAllSubreddits);
   const loadSubredditsStatus = useSelector(selectLoadSubredditsStatus);
+
+  const isPhone = useSelector(selectPhone);
+
   useEffect(() => {
     if (fetchStatus.current) return;
     if (loginStatus.accessToken) {
@@ -34,16 +39,22 @@ export const Subreddits = () => {
     );
   };
   return (
-    <SubredditsWrapper className="phone:w-full phone:fixed phone:bottom-0 phone:left-0 tablet:static tablet:grow tablet:w-auto tablet:shrink-0">
+    <SubredditsWrapper
+      className={`phone:p-4 phone:duration-700 phone:absolute phone:top-0 phone:left-[${
+        isPhone ? "0" : "-300"
+      }px] phone:transition-all phone:left-0 phone:w-[300px] desktop:static desktop:grow desktop:w-auto desktop:shrink desktop:p-0 desktop:transition-none`}
+    >
       <SubredditsMaxWidth>
         <section>
-          <p className="px-5 py-3 antialiased font-extrabold text-lg flex justify-center hover:cursor-pointer bg-indigo-800 tablet:mb-3">
-            <span className="text-white">sub</span>
+          <p className="phone:bg-white px-5 py-3 antialiased font-extrabold text-lg flex justify-start desktop:justify-center hover:cursor-pointer desktop:bg-indigo-800 desktop:mb-3">
+            <span className="phone:text-indigo-800 desktop:text-white">
+              sub
+            </span>
             <BoltIcon className="w-5 text-amber-200" />
             <span className="text-red-400">reddit</span>
           </p>
           {!loadSubredditsStatus.isPending ? (
-            <section className="tablet:rounded-lg">
+            <section className="desktop:rounded-lg">
               {allSubreddits &&
                 allSubreddits.map((subreddit, index) => (
                   <button

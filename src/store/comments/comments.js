@@ -10,7 +10,7 @@ export const Comments = (props) => {
           {props.comments.map((comment, index) => {
             return (
               <div key={index} className="mb-5 border p-3 bg-gray-100">
-                <div className="flex justify-between mb-2">
+                <div className="phone:flex phone:flex-col phone:mb-2 tablet:flex tablet:flex-row tablet:justify-between">
                   <span className="text-gray-600 font-bold">
                     {comment.author}
                   </span>
@@ -18,7 +18,7 @@ export const Comments = (props) => {
                     {moment(new Date(comment.created_utc * 1000)).fromNow()}
                   </span>
                 </div>
-                <p>{comment.content}</p>
+                <p className="w-auto">{comment.content}</p>
               </div>
             );
           })}
