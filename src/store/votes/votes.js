@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { selectLoginStatus } from "../login/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { updateVotes, selectUpdateVotesStatus } from "./votesSlice";
+import { updateVotes } from "./votesSlice";
 
 export const Votes = (props) => {
   const dispatch = useDispatch();
@@ -15,7 +15,6 @@ export const Votes = (props) => {
     status: false,
   });
   const loginStatus = useSelector(selectLoginStatus);
-  const updateVotesStatus = useSelector(selectUpdateVotesStatus);
   const handleClickVote = (dir, id) => {
     const kind = {
       up: 1,

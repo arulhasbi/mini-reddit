@@ -37,7 +37,7 @@ export const Subreddits = () => {
     <SubredditsWrapper className="phone:w-full phone:fixed phone:bottom-0 phone:left-0 tablet:static tablet:grow tablet:w-auto tablet:shrink-0">
       <SubredditsMaxWidth>
         <section>
-          <p className="px-5 py-3 antialiased font-extrabold text-lg flex justify-center hover:cursor-pointer bg-indigo-800 drop-shadow-md tablet:mb-3">
+          <p className="px-5 py-3 antialiased font-extrabold text-lg flex justify-center hover:cursor-pointer bg-indigo-800 tablet:mb-3">
             <span className="text-white">sub</span>
             <BoltIcon className="w-5 text-amber-200" />
             <span className="text-red-400">reddit</span>

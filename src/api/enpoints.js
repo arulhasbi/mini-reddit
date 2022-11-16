@@ -12,7 +12,7 @@ export const getSubreddits = async (where, token) => {
 };
 
 export const getPosts = async (where, token) => {
-  const response = await fetch(`${base}/${where}`, {
+  const response = await fetch(`${base}/${where.kind}?limit=${where.limit}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
