@@ -1,41 +1,51 @@
 import React, { useRef, useEffect, useState } from "react";
-import styled from "styled-components";
-import { DocumentTextIcon } from "@heroicons/react/24/solid";
 import { useDispatch, useSelector } from "react-redux";
+
+import styled from "styled-components";
+
+import moment from "moment";
+
+import { DocumentTextIcon } from "@heroicons/react/24/solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
+
+import { Comments } from "../comments/comments";
+import { Votes } from "../votes/votes";
+
 import {
   loadPosts,
   selectLoadPostsStatus,
   selectAllPosts,
   selectLoadPostsBasedOnSubredditStatus,
 } from "./postsSlice";
-import { selectLoginStatus } from "../login/loginSlice";
-import moment from "moment";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment } from "@fortawesome/free-solid-svg-icons";
-import { Comments } from "../comments/comments";
-import { setPostID, selectPostID } from "../comments/commentsSlice";
-
-import { Votes } from "../votes/votes";
 
 import {
   loadComments,
   selectLoadCommentsStatus,
   selectAllComments,
+  setPostID,
+  selectPostID,
 } from "../comments/commentsSlice";
 
+import { selectLoginStatus } from "../login/loginSlice";
+
 export const Posts = () => {
-  const [commentToggle, setCommentToggle] = useState(false);
   const dispatch = useDispatch();
-  const fetchStatus = useRef(false);
-  const loginStatus = useSelector(selectLoginStatus);
-  const allPosts = useSelector(selectAllPosts);
+
+  const [commentToggle, setCommentToggle] = useState(false);
   const loadPostsStatus = useSelector(selectLoadPostsStatus);
   const allComments = useSelector(selectAllComments);
+
   const loadCommentsStatus = useSelector(selectLoadCommentsStatus);
-  const postID = useSelector(selectPostID);
   const loadPostsBasedOnSubredditStatus = useSelector(
     selectLoadPostsBasedOnSubredditStatus
   );
+
+  const allPosts = useSelector(selectAllPosts);
+  const postID = useSelector(selectPostID);
+
+  const fetchStatus = useRef(false);
+  const loginStatus = useSelector(selectLoginStatus);
   const initialLimitPosts = useRef(5);
 
   useEffect(() => {
@@ -84,7 +94,6 @@ export const Posts = () => {
       })
     );
   };
-
   return (
     <PostsWrapper className="phone:ml-[-20px] phone:mr-[-20px] tablet:grow-[5] tablet:ml-[0px] tablet:mr-[0px]">
       <PostsMaxWidth>

@@ -3,16 +3,20 @@ import styled from "styled-components";
 import { Header } from "../components/header/header";
 import { Subreddits } from "../store/subreddits/subreddits";
 import { Posts } from "../store/posts/posts";
+import { Searches } from "../components/searches/searches";
 import { Footer } from "../components/footer/footer";
 import { getAuthCode, checkAccessToken } from "../api/util";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../store/login/loginSlice";
 import { selectLoginStatus, setAccessToken } from "../store/login/loginSlice";
+import { selectSearchStatus } from "../store/search/searchSlice";
 
 function App() {
   const fetchStatus = useRef(false);
   const loginStatus = useSelector(selectLoginStatus);
+  const searchStatus = useSelector(selectSearchStatus);
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (fetchStatus.current) return;
     const check = checkAccessToken();
@@ -37,7 +41,7 @@ function App() {
           <AppMaxWidth>
             <Header />
             <main className="mt-8 tablet:flex tablet:gap-5">
-              <Posts />
+              {searchStatus ? <Searches /> : <Posts />}
               <Subreddits />
             </main>
             <footer className="phone:hidden tablet:block">
