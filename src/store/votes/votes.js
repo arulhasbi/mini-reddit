@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateVotes } from "./votesSlice";
 
 export const Votes = (props) => {
+  const [voteInitial, setVoteInitial] = useState(0);
   const dispatch = useDispatch();
   const [voteToggle, setVoteToggle] = useState({
     dir: "",
@@ -16,6 +17,11 @@ export const Votes = (props) => {
   });
   const loginStatus = useSelector(selectLoginStatus);
   const handleClickVote = (dir, id) => {
+    if (dir === "up") {
+      setVoteInitial(1);
+    } else {
+      setVoteInitial(-1);
+    }
     const kind = {
       up: 1,
       down: -1,
@@ -39,7 +45,7 @@ export const Votes = (props) => {
   };
   const scoreConverter = (score) => {
     if (score >= 1000) {
-      return `${(score / 1000).toFixed(1)}K`;
+      return (score / 1000).toFixed(1);
     }
     return score;
   };
@@ -65,7 +71,8 @@ export const Votes = (props) => {
                 : "text-indigo-600"
             }`}
           >
-            {scoreConverter(props.score)}
+            {Number(scoreConverter(props.score)) + Number(voteInitial)}{" "}
+            {props.score > 1000 && "K"}
           </span>
           <button onClick={() => handleClickVote("down", props.postID)}>
             {" "}
