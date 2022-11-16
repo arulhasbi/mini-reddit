@@ -46,3 +46,20 @@ export const getComments = async (where, token) => {
   const json = await response.json();
   return json;
 };
+
+export const postVotes = async (where, token) => {
+  const param = new URLSearchParams({
+    id: `t3_${where.id}`,
+    dir: Number(where.dir).toString(),
+  });
+  const response = await fetch(`${base}/api/vote`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: param.toString(),
+  });
+  const json = response.json();
+  return json;
+};

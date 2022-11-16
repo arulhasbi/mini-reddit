@@ -5,7 +5,7 @@ const response_type = "code";
 export const state = "8477052678";
 const redirect_uri = "http://localhost:3000/callback/";
 const duration = "permanent";
-const scope = "read";
+const scope = "read vote";
 
 export const authorization = () => {
   const authorizationURL = `https://www.reddit.com/api/v1/authorize?client_id=${client_id}&response_type=${response_type}&state=${state}&redirect_uri=${redirect_uri}&duration=${duration}&scope=${scope}`;

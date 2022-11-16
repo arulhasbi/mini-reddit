@@ -84,7 +84,7 @@ export const Posts = () => {
                   >
                     <div className="flex gap-5">
                       <div className="px-2 flex items-center border bg-white rounded-xl">
-                        <Votes score={post.score} />
+                        <Votes score={post.score} postID={post.post_id} />
                       </div>
                       <div className="grow">
                         <div className="flex items-start gap-3 border-b pb-3 mb-5">
