@@ -71,7 +71,7 @@ export const Votes = (props) => {
                 : "text-indigo-600"
             }`}
           >
-            {Number(scoreConverter(props.score)) + Number(voteInitial)}{" "}
+            {Number(scoreConverter(props.score)) + Number(voteInitial)}
             {props.score > 1000 && "K"}
           </span>
           <button onClick={() => handleClickVote("down", props.postID)}>
