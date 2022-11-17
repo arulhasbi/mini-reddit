@@ -1,6 +1,4 @@
 // required parameters for reddit URL
-const client_id = process.env.REACT_APP_REDDIT_CLIENT_ID;
-const client_secret = process.env.REACT_APP_REDDIT_CLIENT_SECRET;
 const response_type = "code";
 export const state = "8477052678";
 const redirect_uri = "http://localhost:3000/callback/";
@@ -13,7 +11,9 @@ export const authorization = () => {
 };
 
 export const loadAccessToken = async (code) => {
-  const credentials = btoa(`${client_id}:${client_secret}`);
+  const credentials = btoa(
+    `${process.env.REACT_APP_REDDIT_CLIENT_ID}:${process.env.REACT_APP_REDDIT_CLIENT_SECRET}`
+  );
   const param = new URLSearchParams({
     code: code,
     grant_type: "authorization_code",
