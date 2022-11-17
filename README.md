@@ -4,4 +4,4 @@ Will update after the project finished.
 
 ## Project Screen Shots
 
-![Screenshot](ss.png)
+![Screenshot](ss-final.png)
