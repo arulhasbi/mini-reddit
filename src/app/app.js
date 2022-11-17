@@ -43,15 +43,15 @@ function App() {
         </div>
       ) : (
         <AppWrapper
-          className={`py-7 desktop:px-5 desktop:ml-0 phone:w-full phone:duration-700 phone:ml-[${
-            isPhone ? "300" : "0"
-          }px] phone:transition-spacing desktop:transition-none`}
+          className={`py-7 desktop:px-5 desktop:ml-0 phone:w-full phone:duration-700 ${
+            isPhone ? "phone:ml-[300px]" : "phone:ml-[0px]"
+          } phone:transition-spacing desktop:transition-none`}
         >
           <AppMaxWidth>
             <Header />
             <main className="mt-5 tablet:flex tablet:gap-5">
               {searchStatus ? <Searches /> : <Posts />}
-              <Subreddits />
+              {loginStatus.accessToken && <Subreddits />}
             </main>
             <footer className="phone:hidden tablet:block">
               <Footer />

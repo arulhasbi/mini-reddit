@@ -11,12 +11,15 @@ import { setPhone } from "../../store/responsive/responsiveSlice";
 import { selectPhone } from "../../store/responsive/responsiveSlice";
 import { useDispatch, useSelector } from "react-redux";
 
+import { selectLoginStatus } from "../../store/login/loginSlice";
+
 export const Header = () => {
   const dispatch = useDispatch();
   const isPhone = useSelector(selectPhone);
   const showSubreddit = () => {
     dispatch(setPhone(!isPhone));
   };
+  const loginStatus = useSelector(selectLoginStatus);
   return (
     <HeaderWrapper className="min-h-max">
       <HeaderMaxWidth>
@@ -33,17 +36,19 @@ export const Header = () => {
           </div>
           <Search />
         </nav>
-        <div className="flex justify-start tablet:mt-0">
-          <button
-            type="button"
-            onClick={showSubreddit}
-            className="antialiased font-extrabold flex justify-center drop-shadow-md hover:cursor-pointer px-3 flex desktop:hidden"
-          >
-            <span className="text-indigo-800">click for sub</span>
-            <BoltIcon className="w-5 text-amber-200" />
-            <span className="text-red-400">reddit</span>
-          </button>
-        </div>
+        {loginStatus.accessToken && (
+          <div className="flex justify-start tablet:mt-0">
+            <button
+              type="button"
+              onClick={showSubreddit}
+              className="antialiased font-extrabold flex justify-center drop-shadow-md hover:cursor-pointer px-3 flex desktop:hidden"
+            >
+              <span className="text-indigo-800">click for sub</span>
+              <BoltIcon className="w-5 text-amber-200" />
+              <span className="text-red-400">reddit</span>
+            </button>
+          </div>
+        )}
       </HeaderMaxWidth>
     </HeaderWrapper>
   );

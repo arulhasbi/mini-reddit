@@ -40,9 +40,9 @@ export const Subreddits = () => {
   };
   return (
     <SubredditsWrapper
-      className={`phone:p-4 phone:duration-700 phone:absolute phone:top-0 phone:left-[${
-        isPhone ? "0" : "-300"
-      }px] phone:transition-all phone:left-0 phone:w-[300px] desktop:static desktop:grow desktop:w-auto desktop:shrink desktop:p-0 desktop:transition-none`}
+      className={`phone:p-4 phone:duration-700 phone:absolute phone:top-0 phone:left-[-400px] ${
+        isPhone ? "phone:left-[1px]" : "phone:left-[-400px]"
+      } phone:transition-all phone:left-0 phone:w-[300px] desktop:static desktop:grow desktop:w-auto desktop:shrink desktop:p-0 desktop:transition-none`}
     >
       <SubredditsMaxWidth>
         <section>
