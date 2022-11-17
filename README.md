@@ -29,3 +29,5 @@ I learned to create `.env` file in the root's project directory and that's where
 In the production phase:
 
 I learned to use the [netlify's key management](https://docs.netlify.com/configure-builds/environment-variables/) system. 
+
+The writing still not done, will continue tomorrow.
