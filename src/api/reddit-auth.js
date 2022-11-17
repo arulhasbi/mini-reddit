@@ -1,6 +1,6 @@
 // required parameters for reddit URL
-const client_id = "-FyI6jV3CPgrSIWAkaUUiQ";
-const client_secret = "DFa5xnHIp3xM9oh4m-L-ssheORGo6A";
+const client_id = process.env.REACT_APP_REDDIT_CLIENT_ID;
+const client_secret = process.env.REACT_APP_REDDIT_CLIENT_SECRET;
 const response_type = "code";
 export const state = "8477052678";
 const redirect_uri = "http://localhost:3000/callback/";
