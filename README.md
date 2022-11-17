@@ -26,7 +26,7 @@ I learned to create `.env` file in the root's project directory and that's where
 
 In the production phase:
 
-I learned to use the platform's key management system. In this case, netlify.
+I learned to use the [netlify's key management](https://docs.netlify.com/configure-builds/environment-variables/) system. 
 
 
 ### Project Screen Shots
