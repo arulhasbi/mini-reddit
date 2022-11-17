@@ -10,6 +10,21 @@ export const Login = () => {
     authorization();
   };
 
+  const handleLogout = () => {
+    let confirmation = prompt(
+      "Are you sure want to logout? type [yes] to proceed."
+    );
+    if (confirmation === "yes") {
+      window.localStorage.removeItem("user_access");
+      if (process.env.NODE_ENV === "development") {
+        window.location.replace(process.env.REACT_APP_ROOT_DEV);
+      }
+      if (process.env.NODE_ENV === "production") {
+        window.location.replace(process.env.REACT_APP_ROOT_PROD);
+      }
+    }
+  };
+
   return (
     <LoginWrapper className="text-center mr-2">
       <LoginMaxWidth>
@@ -24,10 +39,10 @@ export const Login = () => {
         ) : (
           <button
             type="button"
-            className="font-bold text-sm text-white bg-gray-400 py-2 px-5 rounded-3xl shadow-md"
-            disabled
+            className="font-bold text-sm text-white bg-indigo-600 py-2 px-5 rounded-3xl shadow-md hover:cursor-pointer"
+            onClick={handleLogout}
           >
-            Authorized
+            Log out
           </button>
         )}
       </LoginMaxWidth>
