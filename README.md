@@ -28,6 +28,12 @@ I learned to create `.env` file in the root's project directory and that's where
 
 In the production phase:
 
-I learned to use the [netlify's key management](https://docs.netlify.com/configure-builds/environment-variables/) system. 
+I learned to use the [netlify's key management](https://docs.netlify.com/configure-builds/environment-variables/) system to set up the environment variables. 
 
-The writing still not done, will continue tomorrow.
+**_How to properly set and remove the obtained access token when user does log in and log out respectively?_** 
+
+Alright, I did store the obtained access token into the `localStorage`, but I'm still not sure what should I do when the user is logging out.
+I did read [how to destroy JWT token on logout](https://stackoverflow.com/questions/37959945/how-to-destroy-jwt-tokens-on-logout) on Jamil Noyda response and I found some starting ideas:
+
+- **We cannot manually expires token once it is created**
+- **Delete the stored token from client-side upon log out**: I did this by removing access token from `localStorage`
