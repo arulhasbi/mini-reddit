@@ -11,7 +11,6 @@ import { login } from "../store/login/loginSlice";
 import { selectLoginStatus, setAccessToken } from "../store/login/loginSlice";
 import { selectSearchStatus } from "../store/search/searchSlice";
 
-//experimental
 import { selectPhone } from "../store/responsive/responsiveSlice";
 
 function App() {
@@ -43,15 +42,23 @@ function App() {
         </div>
       ) : (
         <AppWrapper
-          className={`py-7 desktop:px-5 desktop:ml-0 phone:w-full phone:duration-700 ${
-            isPhone ? "phone:ml-[300px]" : "phone:ml-[0px]"
-          } phone:transition-spacing desktop:transition-none`}
+          className={`py-7 phone:ml-[0px] ${
+            isPhone ? "phone:ml-[300px]" : null
+          } desktop:px-5 desktop:ml-0 phone:w-full phone:duration-700 phone:transition-spacing desktop:transition-none`}
         >
           <AppMaxWidth>
             <Header />
             <main className="mt-5 tablet:flex tablet:gap-5">
               {searchStatus ? <Searches /> : <Posts />}
-              {loginStatus.accessToken && <Subreddits />}
+              {loginStatus.accessToken && (
+                <div
+                  className={`phone:absolute phone:top-0 phone:left-[-300px] ${
+                    isPhone ? "phone:left-0" : null
+                  } phone:transition-all phone:duration-700 desktop:static desktop:shrink-0 desktop:transtion-none`}
+                >
+                  <Subreddits />
+                </div>
+              )}
             </main>
             <footer className="phone:hidden tablet:block">
               <Footer />

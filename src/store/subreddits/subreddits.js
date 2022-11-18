@@ -12,7 +12,7 @@ import { loadPostsBasedOnSubreddit } from "../posts/postsSlice";
 
 import { selectPhone } from "../responsive/responsiveSlice";
 
-export const Subreddits = () => {
+export const Subreddits = (props) => {
   const dispatch = useDispatch();
   const fetchStatus = useRef(false);
   const loginStatus = useSelector(selectLoginStatus);
@@ -39,11 +39,7 @@ export const Subreddits = () => {
     );
   };
   return (
-    <SubredditsWrapper
-      className={`phone:p-4 phone:duration-700 phone:absolute phone:top-0 phone:left-[-400px] ${
-        isPhone ? "phone:left-[1px]" : "phone:left-[-400px]"
-      } phone:transition-all phone:left-0 phone:w-[300px] desktop:static desktop:grow desktop:w-auto desktop:shrink desktop:p-0 desktop:transition-none`}
-    >
+    <SubredditsWrapper>
       <SubredditsMaxWidth>
         <section>
           <p className="phone:bg-white px-5 py-3 antialiased font-extrabold text-lg flex justify-start desktop:justify-center hover:cursor-pointer desktop:bg-indigo-800 desktop:mb-3">
