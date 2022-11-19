@@ -32,8 +32,45 @@ I learned to use the [netlify's key management](https://docs.netlify.com/configu
 
 **_How to properly set and remove the obtained access token when user does log in and log out respectively?_** 
 
-Alright, I did store the obtained access token into the `localStorage`, but I'm still not sure what should I do when the user is logging out.
-I did read [how to destroy JWT token on logout](https://stackoverflow.com/questions/37959945/how-to-destroy-jwt-tokens-on-logout) on Jamil Noyda response and I found some starting ideas:
+Alright, I did store the obtained access token into the `localStorage`, so whenever user close the browser, the app would still have an access to the token. However, I'm still not sure what should I do when the user is logging out.
 
-- **We cannot manually expires token once it is created**
-- **Delete the stored token from client-side upon log out**: I did this by removing access token from `localStorage`
+I read [how to destroy JWT token on log out](https://stackoverflow.com/questions/37959945/how-to-destroy-jwt-tokens-on-logout) and on Jamil Noyda response I found some good starting ideas:
+
+- **We cannot manually expires token once it is created** 
+- **Delete the stored token from client-side upon log out**: I did this by removing access token from `localStorage` whenever users are logging out.
+- **Blacklist all of the token that are not valid no more and have not expired yet**: So, in the `redirect_uri`, reddit attach `code` as one of the URL parameters for us a requirement to make an access token request. After I obtained the access token, I tried to make a new request for an access token using the same `code` and turns out I got an error response which I think reddit authorization server did performs the blacklist process.
+
+In summary: I stored the obtained access token in the `localStorage` and simply removes it from `localStorage` when log out happens. We could also creates a logic where the app could automatically log out when a [user does not make any click in 30 seconds](https://stackoverflow.com/questions/71499969/settimeout-and-cleartimeout-in-react).
+
+Further, unlike the previous ones, I used the mobile-first approach to develop this project's site.
+
+I think that's all and I will add more to this writing, if there is any. See you guys in another project. Peace!.
+
+### Dependencies
+
+- @fortawesome/fontawesome-svg-core: `^6.2.0`
+- @fortawesome/free-solid-svg-icons: `^6.2.0`
+- @fortawesome/react-fontawesome: `^0.2.0`
+- @heroicons/react: `^2.0.13`
+- @reduxjs/toolkit: `^1.9.0`
+- moment: `^2.29.4`
+- react-redux: `^8.0.5`
+- redux: `^4.2.0`
+- styled-components: `^5.3.6`
+- @tailwindcss/forms: `^0.5.3`
+- tailwindcss: `^3.2.4`
+
+### Available Scripts
+
+In the project directory, you can run:
+
+### `npm install`
+
+To install all of the needed dependencies, then:
+
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+You may also see any logs in the console when performing any form submission event.
